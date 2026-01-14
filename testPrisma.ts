@@ -7,8 +7,8 @@ async function main() {
 
   const entries = await prisma.entry.findMany();
 
-  console.log("Users:", users);
-  console.log("Entries:", entries);
+  console.log('Users:', users);
+  console.log('Entries:', entries);
 }
 
 main()
