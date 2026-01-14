@@ -1,5 +1,7 @@
 import prisma from '@/lib/prismaClient';
 import  { formatDate }  from '@/lib/formatDate.ts';
+import EditButton from './editButton.tsx';
+
 export default async function EntriesPage(){
     const entries = await prisma.entry.findMany({
         orderBy:{ createdAt: "desc"},
@@ -15,8 +17,10 @@ export default async function EntriesPage(){
                             <h3>{entry.title}</h3>
                             <p>{entry.tag}</p>
                             <small>{formatDate(entry.createdAt)}</small>
+                            <br/>
+                            <EditButton entryId={entry.id} />
                     </li>
-                ))}
+               ) )}
             </ul>
         </main>
     )
