@@ -14,7 +14,7 @@ export default async function EntriesPage(){
                     <li key={entry.id} style={{marginBottom: "1rem"}}>
                             <h3>{entry.title}</h3>
                             <p>{entry.tag}</p>
-                            <small>{new Date(entry.createAt).toLocaleString()}</small>
+                            <small>{entry.createdAt.toLocaleString()}</small>
                     </li>
                 ))}
             </ul>
