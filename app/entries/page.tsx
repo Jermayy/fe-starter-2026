@@ -1,5 +1,5 @@
 import prisma from '@/lib/prismaClient';
-
+import  { formatDate }  from '@/lib/formatDate.ts';
 export default async function EntriesPage(){
     const entries = await prisma.entry.findMany({
         orderBy:{ createdAt: "desc"},
@@ -14,7 +14,7 @@ export default async function EntriesPage(){
                     <li key={entry.id} style={{marginBottom: "1rem"}}>
                             <h3>{entry.title}</h3>
                             <p>{entry.tag}</p>
-                            <small>{entry.createdAt.toLocaleString()}</small>
+                            <small>{formatDate(entry.createdAt)}</small>
                     </li>
                 ))}
             </ul>
