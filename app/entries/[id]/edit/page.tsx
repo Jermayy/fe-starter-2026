@@ -1,6 +1,7 @@
 import prisma from '@/lib/prismaClient.ts';
 import { notFound } from 'next/navigation';
 import { redirect } from 'next/navigation';
+import BackButton from '@/app/entries/components/backButton.tsx';
 
 async function updateEntry(formData: FormData) {
   'use server';
@@ -42,20 +43,32 @@ export default async function EditEntryPage({
   }
 
   return (
-    <form action={updateEntry}>
-      <input type="hidden" name="id" value={entry.id} />
-      <h1>Edit Entry</h1>
+    (
+      <head>
+        <p>Editing {entry.title}</p>
+        <ul>
+          <li>
+            <BackButton />
+          </li>
+        </ul>
+      </head>
+    ),
+    (
+      <form action={updateEntry}>
+        <input type="hidden" name="id" value={entry.id} />
+        <h1>Edit Entry</h1>
 
-      <input
-        type="text"
-        name="title"
-        defaultValue={entry.title}
-        placeholder="Title"
-        required
-      />
-      <input name="tag" defaultValue={entry.tag} placeholder="Tag" required />
+        <input
+          type="text"
+          name="title"
+          defaultValue={entry.title}
+          placeholder="Title"
+          required
+        />
+        <input name="tag" defaultValue={entry.tag} placeholder="Tag" required />
 
-      <button type="submit">Save</button>
-    </form>
+        <button type="submit">Save</button>
+      </form>
+    )
   );
 }
