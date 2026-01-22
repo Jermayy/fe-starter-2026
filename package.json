@@ -1,27 +1,40 @@
 {
   "name": "fe-2026-starter-new",
   "version": "0.1.0",
-  "private": true,
+  "type": "module",
   "scripts": {
+    "seed": "npx ts-node --esm prisma/seed.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "clean:dev": "\"./turboclean.sh && npm run dev\""
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.2.0",
     "next": "16.1.4",
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
   "devDependencies": {
+    "@prisma/client": "^7.2.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.4",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.7.4",
+    "prisma": "^7.2.0",
     "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "ts-node": "^10.9.2",
+    "typescript": "^5",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint-config-next": "16.1.4"
+  },
+  "volta": {
+    "node": "24.12.0",
+    "npm": "11.7.0"
+  },
+  "private": true
 }
