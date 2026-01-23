@@ -1,25 +1,7 @@
-import prisma from '@/lib/prismaClient.ts';
+import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { redirect } from 'next/navigation';
-import BackButton from '@/app/entries/components/backButton.tsx';
-
-async function updateEntry(formData: FormData) {
-  'use server';
-  const id = Number(formData.get('id'));
-  const title = formData.get('title') as string;
-  const tag = formData.get('tag') as string;
-
-  console.log([...formData.entries()]); // delete later
-
-  if (!id || !title || !tag) throw new Error('Missing fields');
-
-  await prisma.entry.update({
-    where: { id: id },
-    data: { title, tag },
-  });
-
-  redirect('/entries');
-}
+import { updateEntry } from '@/app/entries/actions';
+import BackButton from '@/app/entries/components/backButton';
 
 export default async function EditEntryPage({
   params,
@@ -44,14 +26,16 @@ export default async function EditEntryPage({
 
   return (
     (
-      <head>
-        <p>Editing {entry.title}</p>
-        <ul>
-          <li>
-            <BackButton />
-          </li>
-        </ul>
-      </head>
+      <>
+        <head>
+          <p>Editing {entry.title}</p>
+          <ul>
+            <li>
+              <BackButton />
+            </li>
+          </ul>
+        </head>
+      </>
     ),
     (
       <form action={updateEntry}>

@@ -1,12 +1,10 @@
 'use client';
-
 import { useRouter } from 'next/navigation';
 
 export default function BackButton() {
-  const routher = useRouter();
-
+  const router = useRouter();
   return (
-    <button type="button" onClick={() => routher.push('/entries')}>
+    <button type="button" onClick={() => router.push('/entries')}>
       Back to Entries
     </button>
   );

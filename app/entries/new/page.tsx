@@ -1,43 +1,16 @@
-import { redirect } from 'next/navigation';
-import prisma from '@/lib/prismaClient.ts';
-import BackButton from '@/app/entries/components/backButton.tsx';
+import { createEntry } from '@/app/entries/actions';
+import BackButton from '@/app/entries/components/backButton';
 
-export default async function NewEntryPage() {
-  async function createEntry(formData: FormData) {
-    'use server';
-
-    const title = formData.get('title') as string;
-    const tag = formData.get('tag') as string;
-
-    if (!title || !tag) {
-      redirect('/entries/new');
-      throw new Error('Title and Tag are required');
-    }
-
-    await prisma.entry.create({
-      data: { title, tag },
-    });
-
-    redirect('/entries'); // after creation, go back to entries list
-  }
-
+export default function NewEntryPage() {
   return (
-    (
-      <body>
-        <p>New Entry</p>
-        <ul>
-          <li>
-            <BackButton />
-          </li>
-        </ul>
-      </body>
-    ),
-    (
+    <main>
+      <BackButton />
+      <h1>New Entry</h1>
       <form action={createEntry}>
-        <input name="title" placeholder="Title" defaultValue="" />
-        <input name="tag" placeholder="Tag" defaultValue="" />
+        <input name="title" placeholder="Title" required />
+        <input name="tag" placeholder="Tag" required />
         <button type="submit">Create Entry</button>
       </form>
-    )
+    </main>
   );
 }
