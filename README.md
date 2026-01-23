@@ -1,3 +1,110 @@
+First-Clone Setup Checklist (Local Dev)
+0. Prerequisites (verify once)
+node -v    # expect v24.12.0 (via Volta)
+npm -v     # expect v11.7.0
+psql --version
+
+
+PostgreSQL must already be installed and running locally.
+
+1. Clone & install dependencies
+git clone <repo-url>
+cd fe-2026-starter
+npm install
+
+2. Create local database (manual, explicit)
+
+Open psql:
+
+psql postgres
+
+
+Create database (name must match .env):
+
+CREATE DATABASE fe_2026_starter;
+\q
+
+
+Prisma does not create databases. This is intentional.
+
+3. Create .env file (required)
+
+Create .env at repo root:
+
+touch .env
+
+
+Add:
+
+DATABASE_URL="postgresql://<user>@localhost:5432/fe_2026_starter"
+
+
+Verify it exists:
+
+ls -a | grep .env
+
+4. Validate Prisma schema (sanity check)
+npx prisma validate
+
+
+✅ Must succeed before continuing
+❌ If this fails, stop here
+
+5. Push schema to database
+npx prisma db push
+
+
+This:
+
+creates tables
+
+applies schema
+
+does not run seed
+
+6. Seed database
+npm run seed
+
+
+Expected:
+
+no runtime errors
+
+seed logs visible
+
+7. Verify seed data (do not trust logs)
+psql fe_2026_starter
+
+
+Run a simple check (example):
+
+SELECT * FROM <table_name>;
+\q
+
+
+If rows exist → seed is confirmed.
+
+8. Start dev server
+npm run dev
+
+
+Open:
+
+http://localhost:3000
+
+9. If something breaks (known-good reset)
+pkill -f next
+rm -rf .next node_modules package-lock.json
+npm install
+
+
+Then re-run steps 4 → 8.
+
+
+
+
+-------------------
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
 
 ## Getting Started
