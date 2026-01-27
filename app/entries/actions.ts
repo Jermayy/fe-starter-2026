@@ -1,19 +1,23 @@
 'use server';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
+import { createEntrySchema, updateEntrySchema } from '@/lib/validation/entry';
+
+function formDataToObject(formData: FormData) {
+  return Object.fromEntries(formData.entries());
+}
 
 export async function createEntry(formData: FormData) {
   'use server';
 
-  const title = formData.get('title') as string;
-  const tag = formData.get('tag') as string;
+  const parsedData = createEntrySchema.safeParse(formDataToObject(formData));
 
-  if (!title || !tag) {
-    throw new Error('Title and Tag are required');
+  if (!parsedData.success) {
+    throw new Error(parsedData.error.issues[0].message);
   }
 
   await prisma.entry.create({
-    data: { title, tag },
+    data: parsedData.data,
   });
 
   redirect('/entries'); // after creation, go back to entries list
@@ -21,16 +25,22 @@ export async function createEntry(formData: FormData) {
 
 export async function updateEntry(formData: FormData) {
   'use server';
-  const id = Number(formData.get('id'));
-  const title = formData.get('title') as string;
-  const tag = formData.get('tag') as string;
 
-  if (!Number.isInteger(id) || !title || !tag)
-    throw new Error('invalid update payload');
+  const rawData = formDataToObject(formData);
+  const parsedData = updateEntrySchema.safeParse({
+    ...rawData,
+    id: Number(rawData.id),
+  });
+
+  if (!parsedData.success) {
+    throw new Error(parsedData.error.issues[0].message);
+  }
+
+  const { id, ...data } = parsedData.data;
 
   await prisma.entry.update({
     where: { id: id },
-    data: { title, tag },
+    data,
   });
 
   redirect('/entries');
