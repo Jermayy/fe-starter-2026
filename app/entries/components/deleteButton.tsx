@@ -9,7 +9,7 @@ export default function DeleteButton({ entryId }: { entryId: number }) {
     <button
       disabled={isPending}
       type="button"
-      onClick={() => startTransition(deleteEntry(entryId))}
+      onClick={() => startTransition(() => deleteEntry(entryId))}
     >
       {isPending ? 'Deleting...' : 'Delete'}
     </button>
