@@ -1,12 +1,13 @@
 // app/entries/page.tsx
 import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils/formatDate';
+import type { Entry } from '@prisma/client';
 import EditButton from './components/editButton';
 import DeleteButton from './components/deleteButton';
 import NewButton from './components/newButton';
 
 export default async function EntriesPage() {
-  const entries = await prisma.entry.findMany({
+  const entries: Entry[] = await prisma.entry.findMany({
     orderBy: { createdAt: 'desc' },
   });
 
