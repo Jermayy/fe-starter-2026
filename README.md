@@ -33,7 +33,7 @@ npm run dev
 
 Next.js 16 + React 19 + TypeScript
 
-Prisma ORM + PostgreSQL
+Prisma ORM + PostgreSQL (DB Hosted via Neon)
 
 TailwindCSS
 
