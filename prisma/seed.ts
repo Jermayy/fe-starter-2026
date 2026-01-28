@@ -9,11 +9,7 @@ async function main() {
       email: 'jeremy@example.com',
       posts: {
         create: [
-          {
-            title: 'Hello World',
-            content: 'My first post',
-            published: true,
-          },
+          { title: 'Hello World', content: 'My first post', published: true },
         ],
       },
     },
