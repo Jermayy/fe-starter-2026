@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FE Starter 2026
 
-## Getting Started
+Next.js + TypeScript + Prisma + PostgreSQL fullstack starter, ready for deployment on Vercel.  
 
-First, run the development server:
+Deployed here: https://fe-starter-2026.vercel.app/
+
+
+---
+
+## Quickstart
 
 ```bash
+# Clone
+git clone <repo-url>
+cd fe-starter-2026
+
+# Install dependencies
+npm install
+
+# Set up .env
+echo 'DATABASE_URL="postgresql://<username>@localhost:5432/fe_starter_2026"' > .env
+
+# Generate Prisma client, migrate, and seed
+npx prisma generate
+npx prisma migrate dev
+npm run seed
+
+# Start dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Next.js 16 + React 19 + TypeScript
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Prisma ORM + PostgreSQL
 
-## Learn More
+TailwindCSS
 
-To learn more about Next.js, take a look at the following resources:
+CRUD for User, Post, Entry
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Vercel-ready deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment Notes
 
-## Deploy on Vercel
+Set DATABASE_URL on Vercel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Seed data will run locally; ensure migrations are committed.
