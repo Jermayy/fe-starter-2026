@@ -1,4 +1,5 @@
-// app/entries/page.tsx
+export const dynamic = 'force-dynamic';
+
 import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils/formatDate';
 import type { Entry } from '@prisma/client';
